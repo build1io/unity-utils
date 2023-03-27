@@ -26,6 +26,11 @@ namespace Build1.UnityUtils.Extensions
         {
             return new DateTime(1970, 1, 1).AddSeconds(timestamp);
         }
+        
+        public static DateTime FromUnixTimestampMilliseconds(this ulong timestamp)
+        {
+            return new DateTime(1970, 1, 1).AddMilliseconds(timestamp);
+        }
 
         public static string FormatSeconds(this int seconds, SecondsFormat format)  { return TimeSpan.FromSeconds(seconds).FormatSeconds(format); }
         public static string FormatSeconds(this long seconds, SecondsFormat format) { return TimeSpan.FromSeconds(seconds).FormatSeconds(format); }
