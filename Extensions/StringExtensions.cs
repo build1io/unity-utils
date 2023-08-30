@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Build1.UnityUtils.Extensions
 {
@@ -38,6 +39,11 @@ namespace Build1.UnityUtils.Extensions
             using var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress);
             gZipStream.Read(buffer, 0, buffer.Length);
             return Encoding.UTF8.GetString(buffer);
+        }
+
+        public static string FormatCamelCaseToSpacedCamelCase(this string input)
+        {
+            return Regex.Replace(input, "(\\B[A-Z])", " $1");
         }
     }
 }
