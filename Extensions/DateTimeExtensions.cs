@@ -7,9 +7,10 @@ namespace Build1.UnityUtils.Extensions
         public enum SecondsFormat
         {
             Timer                  = 1,
-            TimerLettered          = 2,
-            OneValue               = 3,
-            TimerWithMinifiedHours = 4
+            TimerWithHours         = 2,
+            TimerLettered          = 3,
+            OneValue               = 4,
+            TimerWithMinifiedHours = 5
         }
 
         public static long ToUnixTimestamp(this DateTime dateTime)
@@ -21,12 +22,12 @@ namespace Build1.UnityUtils.Extensions
         {
             return new DateTime(1970, 1, 1).AddSeconds(timestamp);
         }
-        
+
         public static DateTime FromUnixTimestamp(this long timestamp)
         {
             return new DateTime(1970, 1, 1).AddSeconds(timestamp);
         }
-        
+
         public static DateTime FromUnixTimestampMilliseconds(this ulong timestamp)
         {
             return new DateTime(1970, 1, 1).AddMilliseconds(timestamp);
@@ -44,11 +45,16 @@ namespace Build1.UnityUtils.Extensions
                                ? $"{(int)span.TotalHours}:{span:mm\\:ss}"
                                : span.ToString(span.Hours > 0 ? "hh\\:mm\\:ss" : "mm\\:ss");
 
+                case SecondsFormat.TimerWithHours:
+                    return span.Days > 0
+                               ? $"{(int)span.TotalHours}:{span:mm\\:ss}"
+                               : span.ToString("hh\\:mm\\:ss");
+
                 case SecondsFormat.TimerWithMinifiedHours:
                     return span.Days > 0
                                ? $"{(int)span.TotalHours}:{span:mm\\:ss}"
                                : span.ToString(span.Hours > 0 ? "h\\:mm\\:ss" : "mm\\:ss");
-                
+
                 case SecondsFormat.TimerLettered:
                     return $"{(int)span.TotalHours}h {span.Minutes}m {span:ss}s";
 
